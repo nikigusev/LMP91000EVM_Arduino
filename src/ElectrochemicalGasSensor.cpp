@@ -80,8 +80,9 @@ double ElectrochemicalGasSensor::getPPM()
     Serial.println(" V");
     #endif
 
-    // Remove the reference voltage offset (VREF is fixed at 2.5V for LMP91000)
-    double voltsNoRef = voltage - (REF_VOLTAGE * (internalZeroPercent / 100.0F));
+    // Remove the reference voltage offset.
+    // Since the LMP91000 VREF is fixed at 2.5V, we subtract 2.5V * (internalZeroPercent/100)
+    double voltsNoRef = voltage - (2.5 * (internalZeroPercent / 100.0F));
 
     #ifdef ELECTROCHEMICAL_SENSOR_DEBUG
     Serial.print("Voltage without reference value: ");
