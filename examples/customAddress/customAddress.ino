@@ -2,8 +2,10 @@
 #include "ElectrochemicalGasSensor.h"
 #include "sensorConfigData.h"
 
-// Use the SGX H2S sensor configuration on analog pin A0 (no config pin used)
-ElectrochemicalGasSensor sensor(SENSOR_H2S_SGX, A0, -1);
+// Create the sensor object using SENSOR_H2S_FIGARO.
+// Although we can’t change the LMP91000 I2C address (it's fixed at 0x48),
+// we simulate a custom address scenario by specifying a configuration pin.
+ElectrochemicalGasSensor sensor(SENSOR_H2S_FIGARO, A0, 5);
 
 void setup() {
   Serial.begin(115200);
@@ -11,7 +13,7 @@ void setup() {
     Serial.println("ERROR: Can't init the sensor! Check connections!");
     while (true) delay(100);
   }
-  Serial.println("H2S sensor (SGX PS4-H2S-100) initialized successfully!");
+  Serial.println("Sensor (Figaro H2S) initialized with custom configuration pin!");
 }
 
 void loop() {
